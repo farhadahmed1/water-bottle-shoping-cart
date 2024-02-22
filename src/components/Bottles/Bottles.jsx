@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { addToLS, getStoredCart } from "../../utilities/localstorage";
 import Bottle from "../Bottle/Bottle";
 import Cart from "../Cart/Cart";
 import './Bottles.css';
@@ -14,6 +15,15 @@ const Bottles = () => {
     .then(data => setBottles(data))
 
   },[])
+
+  useEffect(() => {
+    console.log(bottles.length);
+    if(bottles.length>0){
+      const storedCart = getStoredCart();
+    console.log(storedCart);
+    }
+
+  },[bottles])
  // console.log( bottles);
 
   // event-handelar 
@@ -22,6 +32,7 @@ const Bottles = () => {
     //console.log(bottle);
     const newCart = [...cart ,bottle];
     setCart(newCart);
+    addToLS(bottle.id)
 
   }
 
